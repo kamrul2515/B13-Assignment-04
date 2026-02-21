@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind Cdn & DaisyUI-->
+     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+     <!-- font-awesome cdn -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      <!-- google font cdn -->
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+
+        <style>
+            *{
+                font-family: "Geist", sans-serif;
+            }
+            .btn-set{
+                background-color: white;
+                font-size: 12px;
+                font-weight: 500;
+                border: none;
+                border-radius: 10px;
+                color: #64748B;
+                padding: 10px 13px;
+                cursor: pointer;
+            }
+            .btn-set:hover{
+                background-color: #3B82F6;
+                color: white;
+            }
+            .btn-set.active{
+                background-color: #3B82F6;
+                color: white;
+            }
+            .job-card{
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+            }
+            .job-card:hover{
+                transform: translateY(-8px);
+                box-shadow: 0 20px 25px rgb(0 0 0 / 0.1);
+            }
+        </style>
+    <title>Job Appliction Traker Form</title>
+</head>
+<body class="bg-[#F8FAFC]">
+    <header class="w-[1110px] mx-auto pt-[60px]">
+        <h2 class="text-[#002C5C] font-bold text-[26px]">Job Application Tracker</h2>
+        <div id="header-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="h-card bg-[#FFFFFF] p-5 mt-5 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1">
+                <p class="text-[#323B49] font-medium text-[14px]">Total</p>
+                <h4 id="total-count" class="text-[#002C5C] font-bold text-[20px]">8</h4>
+            </div>
+            <div class="h-card bg-[#FFFFFF] p-5 mt-5 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1">
+                <p class="text-[#323B49] font-medium text-[14px]">Interview</p>
+                <h4 id="interview-count" class="text-[#10B981] font-bold text-[20px]">0</h4>
+            </div>
+            <div class="h-card bg-[#FFFFFF] p-5 mt-5 rounded-xl transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1">
+                <p class="text-[#323B49] font-medium text-[14px]">Rejected</p>
+                <h4 id="rejected-count" class="text-[#EF4444] font-bold text-[20px]">0</h4>
+            </div>
+        </div>
+        <div class="border-b-2 text-[#E6E7E9] pt-[30px]"></div>
+    </header>
+
+    <section id="jobs-content" class="max-w-[1110px] mx-auto pt-[30px] pb-[60px]">
+        <div class="flex flex-col sm:flex-row justify-between">
+            <div>
+                <h2 class="text-[#002C5C] font-bold text-[20px]">Available Jobs</h2>
+            </div>
+            <div>
+                <p id="job-number" class="text-[#323B49] font-medium text-[14px]">8 jobs</p>
+            </div>
+        </div>
+
+        <div class="buttons mt-6 mb-4 flex flex-wrap gap-2 space-x-2">
+            <button onclick="showOnly('all')" id="all-btn" class="btn-set active w-[75px] h-[40px]">All</button>
+            <button  onclick="showOnly('interview')" id="interview-btn" class="btn-set">Interview</button>
+            <button  onclick="showOnly('rejected')" id="rejected-btn" class="btn-set">Rejected</button>
+        </div>
+
+        <div id="jobs-cards" class="space-y-4">
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+            <div class="jobs-cards space-y-4"></div>
+        </div>
+    </section>
+
+
+    <section id="interview" class="w-[1110px] mx-auto pt-[30px] pb-[60px] hidden">
+        <div class="bg-white p-6 h-[400px] rounded-xl flex ms-auto items-center justify-center text-center">
+            <div>
+                <img class="pb-5 mx-auto" src="assets/assignment_7959593 1.png" alt="">
+            <h2 class="text-[#002C5C] font-semibold text-[24px] pb-1">No jobs available</h2>
+            <p class="text-[#64748B] text-[16px] pb-6">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    </section>
+
+       <section id="rejected" class="w-[1110px] mx-auto pt-[30px] pb-[60px] hidden">
+        <div class="bg-white p-6 h-[400px] rounded-xl flex ms-auto items-center justify-center text-center">
+            <div>
+                <img class="pb-5 mx-auto" src="assets/assignment_7959593 1.png" alt="">
+            <h2 class="text-[#002C5C] font-semibold text-[24px] pb-1">No jobs available</h2>
+            <p class="text-[#64748B] text-[16px] pb-6">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <script src="script/button.js"></script>
+
+    
+</body>
+</html>
