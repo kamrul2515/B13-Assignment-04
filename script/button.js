@@ -11,12 +11,13 @@ let jobs = [
 
 let currentTab = "all";
 
-const cardContanier = document.querySelector(".jobs-cards");
+const cardContainer = document.querySelector(".jobs-cards");
 const interviewSection = document.getElementById("interview");
 const rejectedSection = document.getElementById("rejected");
 
+//1. all jobs on current selected tab (all / interview / rejected)
 function renderJobs() {
-    cardContanier.innerHTML = "";
+    cardContainer.innerHTML = "";
 
     let filteredJobs = jobs;
     if(currentTab !== "all") {
@@ -28,7 +29,7 @@ function renderJobs() {
     updateCounts(filteredJobs);
 
     if(filteredJobs.length === 0 && currentTab !== "all") {
-        cardContanier.classList.add("hidden");
+        cardContainer.classList.add("hidden");
 
         if(currentTab === "interview") {
             interviewSection.classList.remove("hidden");
@@ -37,12 +38,12 @@ function renderJobs() {
 
         if(currentTab === "rejected") {
             interviewSection.classList.add("hidden");
-            interviewSection.classList.remove("hidden");
+            rejectedSection.classList.remove("hidden");
         }
         return;
     }
 
-    cardContanier.classList.remove("hidden");
+    cardContainer.classList.remove("hidden");
     interviewSection.classList.add("hidden");
     rejectedSection.classList.add("hidden");
 
@@ -59,7 +60,7 @@ function renderJobs() {
         }
 
         if(job.status === "rejected") {
-            badge = `<span class="badge badge-success mt-2 mb-1">INTERVIEW</span>`;
+            badge = `<span class="badge badge-error mt-2 mb-1">REJECTED</span>`;
         }
 
         card.innerHTML = `
@@ -89,87 +90,10 @@ function renderJobs() {
         </div>
         `;
 
-        cardContanier.appendChild(card);
+        cardContainer.appendChild(card);
     }
 }
 
-function updateCounts(filteredJobs){
-    document.getElementById("total-count").innerText = jobs.length;
 
-    let interviewCount = 0;
-    let rejectedCount = 0;
 
-    for(let i = 0; i < jobs.length; i++){
-        if(jobs[i].status === "interview"){
-            interviewCount++;
-        }
 
-        if(jobs[i].status === "rejected"){
-            rejectedCount++;
-        }
-    }
-
-    document.getElementById("interview-count").innerText = interviewCount;
-    document.getElementById("rejected-count").innerText = rejectedCount;
-
-    document.getElementById("job-number").innerText = filteredJobs.length + " jobs";
-}
-
-function setInterview(id) {
-    for (let i = 0; i < jobs.length; i++) {
-        if (jobs[i].id === id) {
-            if (jobs[i].status === "interview") {
-                jobs[i].status = "not-applied";
-            } else {
-                jobs[i].status = "interview";
-            }
-        }
-    }
-
-    renderJobs();
-}
-
-function setRejected(id) {
-    for (let i = 0; i < jobs.length; i++) {
-        if (jobs[i].id === id) {
-            if (jobs[i].status === "rejected") {
-                jobs[i].status = "not-applied";
-            } else {
-                jobs[i].status = "rejected";
-            }
-        }
-    }
-
-    renderJobs();
-}
-
-function deleteJob(id){
-    let newJobs = [];
-
-    for(let i = 0; i < jobs.length; i++){
-        if(jobs[i].id !==id){
-            newJobs.push(jobs[i]);
-        }
-    }
-
-    jobs = newJobs;
-    renderJobs();
-}
-
-function showOnly(tab){
-    currentTab = tab;
-
-    let buttons = document.querySelectorAll(".btn-set");
-
-    for(let i = 0; i < buttons.length; i++){
-        buttons[i].classList.remove("active");
-    }
-
-    document.getElementById(tab + "-btn").classList.add("active")
-
-    renderJobs();
-}
-
-window.onload = function(){
-    renderJobs();
-}
